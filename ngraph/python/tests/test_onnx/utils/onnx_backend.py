@@ -19,7 +19,6 @@ ONNX Backend implementation.
 See ONNX documentation for details:
 https://github.com/onnx/onnx/blob/master/docs/Implementing%20an%20ONNX%20backend.md
 """
-
 from typing import Any, Dict, List, Optional, Sequence, Text, Tuple
 
 import numpy
@@ -57,7 +56,8 @@ class OpenVinoOnnxBackend(Backend):
         try:
             import_onnx_model(model)
             return True
-        except Exception:
+        except Exception as e:
+            print("\nnGraph failed to import ONNX model: {}\n".format(str(e)))
             return False
 
     @classmethod

@@ -84,13 +84,10 @@ skip_tests_general = [
 for test in skip_tests_general:
     backend_test.exclude(test)
 
-# NOTE: ALL backend_test.exclude CALLS MUST BE PERFORMED BEFORE THE CALL TO globals().update
-
 OnnxBackendNodeModelTest = None
 OnnxBackendSimpleModelTest = None
 OnnxBackendPyTorchOperatorModelTest = None
 OnnxBackendPyTorchConvertedModelTest = None
-globals().update(backend_test.enable_report().test_cases)
 
 tests_expected_to_fail = [
     (xfail_issue_34314,
@@ -343,3 +340,6 @@ tests_expected_to_fail = [
 for test_group in tests_expected_to_fail:
     for test_case in test_group[1:]:
         expect_fail("{}".format(test_case), test_group[0])
+
+# NOTE: ALL expect_fail CALLS MUST BE PERFORMED BEFORE THE CALL TO globals().update
+globals().update(backend_test.enable_report().test_cases)
